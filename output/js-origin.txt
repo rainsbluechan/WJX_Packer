@@ -1,0 +1,41 @@
+﻿var questions = document.querySelectorAll(".field-label");
+for (var i = 0; i < questions.length; i++) {
+    var question = questions[i];
+    var questionText = question.textContent.trim();
+    var filteredText = questionText.replace(/[^\u4e00-\u9fa50-9]/g, '');
+    filteredText = filteredText.replace(/^\d{1,6}/, '')
+    filteredText = filteredText.replace(/\d+分/, '')
+    filteredText = filteredText.replace(/单选.*$/, '')
+    filteredText = filteredText.replace(/多选.*$/, '')
+    filteredText = filteredText.replace(/判断.*$/, '')
+
+    var question_bank = '';
+
+    var daan = '';
+    var p_end = 0;
+    while (true) {
+        var p = question_bank.indexOf(filteredText, p_end);
+        if (p === -1) {
+            break;
+        } else {
+            var end = question_bank.indexOf("【答案】", p);
+            if (end === -1) {
+                p_end += 1;
+            } else {
+                p_end = end;
+                var p_next = question_bank.indexOf("$", p);
+                if (p_next !== -1) {
+                    daan += question_bank.slice(p_end + 4, p_next);
+                    daan += "···";
+                } else {
+                    daan += question_bank.substring(p_end + 4);
+                    daan += "···";
+                }
+            }
+        }
+    }
+    if (daan === '') {
+        daan += "题库未收录";
+    }
+    question.textContent += daan;
+}
