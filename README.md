@@ -1,1 +1,6 @@
-![Uploading khalil-for-love.jpg…]()
+WJX_Packer
+V1.1 文艺复兴版
+---------------
+2025-2-20
+支持多进程同时爬取
+整合js
